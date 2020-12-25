@@ -3,19 +3,14 @@
     <div class="sortList clearfix">
       <div class="center">
         <!--banner轮播-->
-        <div class="swiper-container" id="mySwiper">
+        <div class="swiper-container" ref="mySwiper">
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="./images/banner1.jpg" />
-            </div>
-            <div class="swiper-slide">
-              <img src="./images/banner2.jpg" />
-            </div>
-            <div class="swiper-slide">
-              <img src="./images/banner3.jpg" />
-            </div>
-            <div class="swiper-slide">
-              <img src="./images/banner4.jpg" />
+            <div
+              class="swiper-slide"
+              v-for="(banner, index) in bannerList"
+              :key="banner.id"
+            >
+              <img :src="banner.imageUrl" style="height: 464px; width: 100%" />
             </div>
           </div>
           <!-- 如果需要分页器 -->
@@ -100,8 +95,40 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+import Swiper from "swiper";
+import "swiper/css/swiper.css";
 export default {
-  name: "",
+  name: "ListContain",
+  computed: {
+    ...mapState({
+      bannerList: (state) => state.home.bannerList,
+    }),
+  },
+  watch: {
+    bannerList() {
+      // 当轮播列表界面显示之后才执行回调
+      this.$nextTick(() => {
+        // swiper对象必须在列表界面显示之后创建才有效
+        new Swiper(this.$refs.mySwiper, {
+          loop: true, // 循环模式选项
+          autoplay: {
+            // 自动轮播
+            disableOnInteraction: false, // 用户操作后, 恢复自动轮播
+          },
+          // 如果需要分页器
+          pagination: {
+            el: ".swiper-pagination",
+          },
+          // 如果需要前进后退按钮
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          },
+        });
+      });
+    },
+  },
 };
 </script>
 

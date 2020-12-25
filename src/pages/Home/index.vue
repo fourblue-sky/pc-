@@ -6,12 +6,12 @@
     <Rank></Rank>
     <Like></Like>
     <Floor></Floor>
+    <Floor></Floor>
     <Brand></Brand>
   </div>
 </template>
 
 <script>
-import TypeNav from "@/pages/Home/TypeNav";
 import ListContain from "@/pages/Home/ListContain";
 import TodayRem from "@/pages/Home/TodayRem";
 import Rank from "@/pages/Home/Rank";
@@ -21,7 +21,6 @@ import Brand from "@/pages/Home/Brand";
 export default {
   name: "Home",
   components: {
-    TypeNav,
     ListContain,
     TodayRem,
     Rank,
