@@ -3,6 +3,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import home from './modules/home'
 import users from './modules/users'
+import search from './modules/search'
 Vue.use(Vuex)
 const state = {
 
@@ -24,5 +25,6 @@ export default new Vuex.Store({
     modules: {
         home,
         users,
+        search
     }
 })

@@ -91,7 +91,7 @@ export default {
     //编程式路由导航:自定义标签属性用来解决携带参数,若用到编程式路由导航需要绑定点击事件 若用到声明式路由导航则直接拼到路径中即可,并且自定义标签属性可用来收集数据
     //并且收集到的属性会统一存放在event.target.dataset中属性名全小写
     toSearch(event) {
-      const location = { name: "search", params: this.$router.params };
+      const location = { name: "search", params: this.$route.params };
       const {
         categoryname,
         category1id,
@@ -113,8 +113,11 @@ export default {
         }
         location.query = query;
       }
-
-      return this.$router.push(location);
+      if (this.$route.name === "search") {
+        this.$router.replace(location);
+      } else {
+        this.$router.push(location);
+      }
     },
     showItem: throttle(
       function (index) {

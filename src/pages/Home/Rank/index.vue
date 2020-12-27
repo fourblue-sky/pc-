@@ -25,64 +25,17 @@
     <div class="content">
       <ul>
         <li>
-          <div class="img-item">
+          <div class="img-item" v-for="(item, index) in rank" :key="item.id">
             <p class="tab-pic">
               <a href="#">
-                <img src="./images/1.jpg" />
+                <img :src="item.img" />
               </a>
             </p>
             <div class="tab-info">
               <div class="info-title">
-                <a href="#"
-                  >【官网价直降1100】Apple iPhone 8 Plus 256GB 银色 移动联通电信4G手机</a
-                >
+                <a href="#">{{ item.title }}</a>
               </div>
-              <p class="info-price">定金：¥100.00</p>
-            </div>
-          </div>
-          <div class="img-item">
-            <p class="tab-pic">
-              <a href="#">
-                <img src="./images/1.jpg" />
-              </a>
-            </p>
-            <div class="tab-info">
-              <div class="info-title">
-                <a href="#"
-                  >【官网价直降1100】Apple iPhone 8 Plus 256GB 银色 移动联通电信4G手机</a
-                >
-              </div>
-              <p class="info-price">定金：¥100.00</p>
-            </div>
-          </div>
-          <div class="img-item">
-            <p class="tab-pic">
-              <a href="#">
-                <img src="./images/1.jpg" />
-              </a>
-            </p>
-            <div class="tab-info">
-              <div class="info-title">
-                <a href="#"
-                  >【官网价直降1100】Apple iPhone 8 Plus 256GB 银色 移动联通电信4G手机</a
-                >
-              </div>
-              <p class="info-price">定金：¥100.00</p>
-            </div>
-          </div>
-          <div class="img-item">
-            <p class="tab-pic">
-              <a href="#">
-                <img src="./images/1.jpg" />
-              </a>
-            </p>
-            <div class="tab-info">
-              <div class="info-title">
-                <a href="#"
-                  >【官网价直降1100】Apple iPhone 8 Plus 256GB 银色 移动联通电信4G手机</a
-                >
-              </div>
-              <p class="info-price">定金：¥100.00</p>
+              <p class="info-price">定金：{{ item.value }}</p>
             </div>
           </div>
         </li>
@@ -92,8 +45,14 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
-  name: "",
+  name: "Rank",
+  computed: {
+    ...mapState({
+      rank: (state) => state.home.rank,
+    }),
+  },
 };
 </script>
 

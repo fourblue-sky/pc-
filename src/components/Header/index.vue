@@ -55,6 +55,14 @@ export default {
       keyword: "",
     };
   },
+  mounted() {
+    this.$bus.$on("clearKeyword", () => {
+      this.keyword = "";
+    });
+  },
+  beforeDestroy() {
+    this.$bus.$off("clearKeyword");
+  },
   methods: {
     search() {
       const location = {
@@ -65,7 +73,11 @@ export default {
       if (this.keyword) {
         location.params = { keyword: this.keyword };
       }
-      this.$router.push(location);
+      if (this.$route.name === "search") {
+        this.$router.replace(location);
+      } else {
+        this.$router.push(location);
+      }
     },
   },
 };

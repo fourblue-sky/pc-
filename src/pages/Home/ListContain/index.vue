@@ -3,24 +3,17 @@
     <div class="sortList clearfix">
       <div class="center">
         <!--banner轮播-->
-        <div class="swiper-container" ref="mySwiper">
-          <div class="swiper-wrapper">
-            <div
-              class="swiper-slide"
-              v-for="(banner, index) in bannerList"
-              :key="banner.id"
-            >
-              <img :src="banner.imageUrl" style="height: 464px; width: 100%" />
-            </div>
-          </div>
-          <!-- 如果需要分页器 -->
-          <div class="swiper-pagination"></div>
 
-          <!-- 如果需要导航按钮 -->
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-        </div>
+        <swiper :options="swiperOptions">
+          <swiper-slide v-for="banner in bannerList" :key="banner.id">
+            <img :src="banner.imageUrl" style="width: 100%; height: 464px" />
+          </swiper-slide>
+          <div class="swiper-pagination" slot="pagination"></div>
+          <div class="swiper-button-prev" slot="button-prev"></div>
+          <div class="swiper-button-next" slot="button-next"></div>
+        </swiper>
       </div>
+
       <div class="right">
         <div class="news">
           <h4>
@@ -96,8 +89,6 @@
 
 <script>
 import { mapState } from "vuex";
-import Swiper from "swiper";
-import "swiper/css/swiper.css";
 export default {
   name: "ListContain",
   computed: {
@@ -105,29 +96,27 @@ export default {
       bannerList: (state) => state.home.bannerList,
     }),
   },
-  watch: {
-    bannerList() {
-      // 当轮播列表界面显示之后才执行回调
-      this.$nextTick(() => {
-        // swiper对象必须在列表界面显示之后创建才有效
-        new Swiper(this.$refs.mySwiper, {
-          loop: true, // 循环模式选项
-          autoplay: {
-            // 自动轮播
-            disableOnInteraction: false, // 用户操作后, 恢复自动轮播
-          },
-          // 如果需要分页器
-          pagination: {
-            el: ".swiper-pagination",
-          },
-          // 如果需要前进后退按钮
-          navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-          },
-        });
-      });
-    },
+  data() {
+    return {
+      swiperOptions: {
+        // direction: 'horizontal', // 水平切换选项
+        loop: true, // 循环模式选项
+        autoplay: {
+          // 自动轮播
+          delay: 4000,
+          disableOnInteraction: false, // 用户操作后是否停止自动轮播
+        },
+        // 如果需要分页器
+        pagination: {
+          el: ".swiper-pagination",
+        },
+        // 如果需要前进后退按钮
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      },
+    };
   },
 };
 </script>
